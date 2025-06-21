@@ -191,7 +191,11 @@ class BayesianNetworkPlugin(Plugin):
         df = X.dataframe()
         self.encoder.fit(df)
 
-        dag = self._get_dag(df)
+        # dag = self._get_dag(df)
+        dag = kwargs.get("dag")
+
+        if dag is None:
+            dag = self._get_dag(df)
 
         network = BayesianNetwork(dag)
         network.fit(df)
